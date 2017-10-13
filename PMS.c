@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdbool.h>
 struct Node{
   char* name;
   struct Node *left;
@@ -36,9 +36,10 @@ void deleteAllEmployees(){
 }
 
 int main(){
-  while(true){
-  char Fname[50];
-  char Lname[50];
+  _Bool run = true;
+  while(run){
+    char Fname[50];
+    char Lname[50];
   printf("welcome to the personal management system 2017:\n\t");
   printf("1.add employee\n\t2.remove employee\n\t3.list all employee names\n\n\t");
   int choice;
