@@ -1,0 +1,1 @@
+void deleteEmployee(FILE *test);
