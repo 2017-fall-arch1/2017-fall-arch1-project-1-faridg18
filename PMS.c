@@ -1,71 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
+#include "addEmployee.h"
+
 struct Node{
   char* name;
   struct Node *left;
   struct Node *right;
 } BST;
 
-void listAllEmployees(){
-  int c;
-  FILE *test;
-  test = fopen("test.txt", "r");
-  if(test){
-    while((c = getc(test)) != EOF)
-      putchar(c);
-    fclose(test);
-    printf("\n"
-	   );
-  }
-}
-void addEmployee(char *newName){
-  FILE *test = fopen("test.txt", "a");
-  
-  fputs(newName, test);
-}
-
-void deleteEmployee(){
-
-}
-
-
-void deleteAllEmployees(){
-
-}
 
 int main(){
-  _Bool run = true;
-  while(run){
-    char Fname[50];
-    char Lname[50];
-  printf("welcome to the personal management system 2017:\n\t");
-  printf("1.add employee\n\t2.remove employee\n\t3.list all employee names\n\n\t");
+  FILE *test;
+  char Fname[50];
+  char Lname[50];
   int choice;
-  scanf("%d", &choice);
-  
-  if(choice == 1){
-    printf("add new employee\n\t");
-    printf("nenter name of new employee\n");
-    scanf("%s", &Fname);
-    printf("%s", Fname);
-    addEmployee(strcat(Fname, "\n"));
-  }else if(choice == 2){
-    printf("remove employee:\n\t");
-    printf("neter name of employee to remove");
-    scanf("%s", &Fname);
+  printf("welcome to the personal management system 2017:\n\t");
+  int status = 1;
+  printf("look at me!");
+  while(status){
+    printf("1.add employee\n\t2.remove employee\n\t3.list all employee names\n\n\t");
+    scanf("%d", choice);
+    getchar();
+    if(choice == 1){
+      addEmployee(test);
+      status =1;
+    }
   }
-  else if (choice == 3){
-    printf("list of all the employees");
-    listAllEmployees();
-  }
-  else if (choice > 3 || choice < 0){
-    printf("choice out of bounds");
-  }
-
-  }
-  
-  
   return 0;
 }
+ 
+void addEmployee(FILE *X){
+  char in[50];
+  X = fopen("test.txt", "a");
+  printf("add new employee\n");
+  //printf("nenter name of new employee\n");
+  //scanf("%s", &in);
+  if(fgets(in, sizeof(in), stdin)){
+    fputs(in, X);
+    fclose(X);
+  }
+}
+//void listAllEmployees(){
+//int c;
+  //FILE *tes
+    //test = fopen("test.txt", "r");
+  //if(test){
+  // while((c = getc(test)) != EOF)
+  //  putchar(c);
+  //  printf("\n");
+  //}
+//}

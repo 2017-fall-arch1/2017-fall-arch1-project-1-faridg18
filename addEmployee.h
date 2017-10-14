@@ -1,0 +1,2 @@
+ 
+void addEmployee(FILE *X);

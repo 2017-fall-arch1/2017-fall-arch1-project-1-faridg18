@@ -1,4 +1,4 @@
-all: llDemo
+all: Lab1_PMS
 
 CFLAGS=-g -O3
 
@@ -6,18 +6,9 @@ CFLAGS=-g -O3
 #   $@ is the production's target
 #   $^ are the production's prerequisites
 
-llDemo: llist.o llDemo.o
+Lab1_PMS: PMS.o
 	cc -o $@ $^
-
-llist.o: llist.c llist.h
-	cc -c $(CFLAGS) llist.c
-
-llDemo.o: llDemo.c llist.h
-	cc -c $(CFLAGS) llDemo.c
-
+Lab1_PMS.o: PMS.c addEmployee.h
+	cc -c $(CFLAGS) PMS.c
 clean:
-	rm -f *.o llDemo
-
-demo: llDemo
-	(echo first; echo "second line"; echo "third and last") | ./llDemo
-
+	rm -f *.o Lab1_PMS
