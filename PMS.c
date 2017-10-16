@@ -5,30 +5,26 @@
 #include "deleteEmployee.h"
 #include "listAllEmployees.h"
 
-typeodef struct Node{
-  char* name;
+typedef struct Node{
+  char *name[50];
   struct Node *left;
   struct Node *right;
-} BST;
-
-BST *head;
+} Node;
 
 int main(){
   FILE *test;
   int choice;
   int status = 1;
  
-  printf("welcome to the personal management system 2017:\n\t");
+  printf("welcome to the personal management system 2017:\n\n");
   while(status){
-    printf("\n\t1.add employee\n\t2.remove employee\n\t3.list all employee names\n\n\t");
+    printf("\n1.add employee\n2.remove employee\n3.list all employee names\n\n\t");
     scanf("%d", &choice);
     if(choice == 1){
-      addEmployee(test, head);
-      status = 1;
+      addEmployee(test);
     }
     if(choice == 2){
       deleteEmployee(test);
-      status = 1;
     }
 
     if(choice == 3){
@@ -42,6 +38,8 @@ int main(){
       printf("clean file");
     }
   }
+
+  //createTree();
   return 0;
 }
  
@@ -60,29 +58,55 @@ void addEmployee(FILE *X){
     fclose(X);
   }
 
-  if(head == NULL){
-    printf("%s", "empty head");
-    
-  }
   
 }
 
 void deleteEmployee(FILE *X){
+  char c;
   printf("%s", "enter the name of the employee to delete:\n\t");
   char name[50];
   scanf("%s", &name);
   X = fopen("test.txt", "rw");
+  if(fgets(name, sizeof(X), X) != NULL){
+    puts(name);
+  }else{
+    printf("%s", "name not found.\n");
+  }
   
   fclose(X);
 
 }
 
 void listAllEmployees(FILE *X){
-  int c;
+  short c;
   X = fopen("test.txt", "r");
   if(X){
-    while((c = getc(X)) != EOF)
+    while(c != EOF){
+     c = getc(X);
      putchar(c);
+    }
    printf("\n");
   }
 }
+
+/*
+void createTree(FILE *X){
+  X = fopen("test.txt", "r");
+  Node *temp;
+  temp = insert(temp, "juan");
+  fclose(X);
+}
+
+
+Node *insert(Node *head, char *name){
+  if (head == NULL){
+    Node *temp;
+    temp = malloc(sizeof(Node));
+    temp -> name = ;
+    temp -> left = temp -> right = NULL;
+    return temp;
+  }
+  return NULL;
+  
+}
+*/
