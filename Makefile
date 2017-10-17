@@ -7,8 +7,8 @@ CFLAGS=-g -O3
 #   $^ are the production's prerequisites
 
 Lab1_PMS: PMS.o
-	cc -o $@ $^
+	cc -o  $@ $^
 Lab1_PMS.o: PMS.c addEmployee.h deleteEmployee.h listAllEmployees.h
-	cc -c $(CFLAGS) PMS.c
+	cc -c  $(CFLAGS) PMS.c
 clean:
 	rm -f *.o Lab1_PMS

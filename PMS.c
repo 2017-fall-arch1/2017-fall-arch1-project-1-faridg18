@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "addEmployee.h"
 #include "deleteEmployee.h"
 #include "listAllEmployees.h"
 
 typedef struct Node{
-  char *name[50];
+  char *name;
   struct Node *left;
   struct Node *right;
 } Node;
@@ -38,43 +39,35 @@ int main(){
       printf("clean file");
     }
   }
-
-  //createTree();
   return 0;
-}
- 
+} 
 void addEmployee(FILE *X){
   char in[50];
-  char in2[50];
   X = fopen("test.txt", "a");
-  printf("\tenter employee name\n");
-  
-  scanf("%s %s", &in, &in2);
-  printf("%s %s", in, in2);
-  printf("%s",strcat(in, in2));
-
-  if(fgets(strcat(in, in2), sizeof(strcat(in, in2)), stdin)){
-    fputs(strcat(in, in2), X);
-    fclose(X);
-  }
-
-  
-}
-
-void deleteEmployee(FILE *X){
-  char c;
-  printf("%s", "enter the name of the employee to delete:\n\t");
-  char name[50];
-  scanf("%s", &name);
-  X = fopen("test.txt", "rw");
-  if(fgets(name, sizeof(X), X) != NULL){
-    puts(name);
-  }else{
-    printf("%s", "name not found.\n");
-  }
-  
+  printf("\tenter employee name\n");  
+  scanf("%s", &in);
+  fputs(strcat(in, "\n"), X);
   fclose(X);
-
+}
+void deleteEmployee(FILE *X){
+  char *temp;
+  X = fopen("test.txt","r");
+  printf("%s","enter name of employee to be deleted from the system.\n");
+  char *search_name;
+  
+  scanf("%s", &search_name);
+  strcat(search_name, "\n");
+  strcpy(temp, fgets(temp, sizeof(temp), X));
+  printf("%s", temp);
+  while(fgets(temp, sizeof(temp), X)){
+    printf("%s", "1");
+    if(strcmp(temp, search_name) == 0){
+    printf("%s", temp);
+  }
+    printf("%s", "2");
+  }
+  fclose(X);
+  free(temp);
 }
 
 void listAllEmployees(FILE *X){
@@ -87,26 +80,13 @@ void listAllEmployees(FILE *X){
     }
    printf("\n");
   }
+  Node * root;
+  root = malloc(sizeof(Node));
+  char * n = "toby";
+  root -> name = "toby";
+  root-> left = NULL;
+  root -> right = NULL;
+
+  free(root);
 }
 
-/*
-void createTree(FILE *X){
-  X = fopen("test.txt", "r");
-  Node *temp;
-  temp = insert(temp, "juan");
-  fclose(X);
-}
-
-
-Node *insert(Node *head, char *name){
-  if (head == NULL){
-    Node *temp;
-    temp = malloc(sizeof(Node));
-    temp -> name = ;
-    temp -> left = temp -> right = NULL;
-    return temp;
-  }
-  return NULL;
-  
-}
-*/
