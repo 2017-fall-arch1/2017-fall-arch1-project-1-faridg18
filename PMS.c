@@ -48,38 +48,48 @@ void addEmployee(FILE *X){
   scanf("%s", &in);
   fputs(strcat(in, "\n"), X);
   fclose(X);
+  printf("%s", "do you want to add another one?(1, 0)\n");
+  int choice;
+  scanf("%d", &choice);
+  if(choice){
+    addEmployee(X);
+  }
+  
 }
 void deleteEmployee(FILE *X){
-  char *temp;
+  char temp[50];
   X = fopen("test.txt","r");
   printf("%s","enter name of employee to be deleted from the system.\n");
-  char *search_name;
-  
+  char search_name[50];
+  FILE *Y;
+  Y = fopen("test2.txt", "a");
   scanf("%s", &search_name);
   strcat(search_name, "\n");
-  strcpy(temp, fgets(temp, sizeof(temp), X));
-  printf("%s", temp);
+ 
   while(fgets(temp, sizeof(temp), X)){
-    printf("%s", "1");
-    if(strcmp(temp, search_name) == 0){
-    printf("%s", temp);
-  }
-    printf("%s", "2");
+    if(strcmp(temp, search_name) != 0){
+      fputs(temp, Y);
+    }
   }
   fclose(X);
-  free(temp);
+  fclose(Y);
+  remove("test.txt");
+  
+  rename("test2.txt", "test.txt");
 }
 
 void listAllEmployees(FILE *X){
-  short c;
+  char temp[50];
+  int id = 1;
   X = fopen("test.txt", "r");
   if(X){
-    while(c != EOF){
-     c = getc(X);
-     putchar(c);
+    while(fgets(temp, sizeof(temp), X)){
+      printf("%d%s%s",id, ". ", temp);
+      ++id;
     }
    printf("\n");
   }
+  fclose(X);
   Node * root;
   root = malloc(sizeof(Node));
   char * n = "toby";
