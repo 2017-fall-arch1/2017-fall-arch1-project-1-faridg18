@@ -6,11 +6,16 @@
 #include "deleteEmployee.h"
 #include "listAllEmployees.h"
 
+
 typedef struct Node{
   char *name;
   struct Node *left;
   struct Node *right;
 } Node;
+
+Node *createNode(char *Name);
+Node *insert (Node* newNode, Node* head);
+
 
 int main(){
   FILE *test;
@@ -36,9 +41,10 @@ int main(){
       status = 0;
     }
     if(choice == 42){
-      printf("clean file");
+      printf("clean file\n");
     }
   }
+  printf("thank you for choosing the personal management system 2017.\n");
   return 0;
 } 
 void addEmployee(FILE *X){
@@ -56,6 +62,7 @@ void addEmployee(FILE *X){
   }
   
 }
+
 void deleteEmployee(FILE *X){
   char temp[50];
   X = fopen("test.txt","r");
@@ -89,14 +96,38 @@ void listAllEmployees(FILE *X){
     }
    printf("\n");
   }
-  fclose(X);
-  Node * root;
-  root = malloc(sizeof(Node));
-  char * n = "toby";
-  root -> name = "toby";
-  root-> left = NULL;
-  root -> right = NULL;
-
+  rewind(X);
+ 
+  Node *root;
+  root = createNode(fgets(temp, sizeof(temp), X));
+  while(fgets(temp, sizeof(temp), X)){
+    Node * tempNode;
+    tempNode = createNode(temp);
+    //printf("%s", tempNode -> name);
+    root = insert(tempNode, root);
+  }
+  printf("this is root %s", root -> name);
+  if(root->left)
+  printf("this is left %s", root -> left -> name);
+  if(root->right)
+  printf("this is right %s", root -> right -> name);
   free(root);
+  fclose(X);
 }
-
+Node *insert(Node *newNode, Node *head){
+  if(strcmp(newNode -> name, head -> name ) < 0){
+    head -> left = newNode;
+  }
+  else if (strcmp(newNode -> name, head -> name) > 0){
+    head -> right = newNode;
+  }
+  return head;
+}
+Node *createNode(char *Name){
+  Node *newNode;
+  newNode = malloc(sizeof(Node));
+  newNode -> name = Name;
+  newNode -> right = NULL;
+  newNode -> left = NULL;
+  return newNode;
+}
