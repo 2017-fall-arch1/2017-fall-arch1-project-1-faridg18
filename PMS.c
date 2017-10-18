@@ -15,7 +15,7 @@ typedef struct Node{
 
 Node *createNode(char *Name);
 Node *insert (Node* nNode, Node* head);
-
+void displayTree(Node *head);
 
 int main(){
   FILE *test;
@@ -89,39 +89,45 @@ void listAllEmployees(FILE *X){
   char temp[50];
   int id = 1;
   X = fopen("test.txt", "r");
-  if(X){
+  /* if(X){
     while(fgets(temp, sizeof(temp), X)){
       printf("%d%s%s",id, ". ", temp);
       ++id;
     }
    printf("\n");
   }
-  rewind(X);
-  char temp2[50];
-  
+  rewind(X);*/
  
   Node *root;
   root = createNode(("d\n")); 
-  /*Node *tempNode;
-  while(fgets(temp, sizeof(temp), X)){
+  Node *tempNode;
+  /*while(fgets(temp, sizeof(temp), X)){
     //Node *tempNode;
     tempNode = createNode(temp);
     printf("%s", tempNode -> name);
     root = insert(tempNode, root);
-    }*/
+    }
+  */
   root = insert(createNode("a\n"), root);
   root = insert(createNode("b\n"), root);
   root = insert(createNode("c\n"), root);
   root = insert(createNode("d\n"), root);
   root = insert(createNode("e\n"), root);
+  root = insert(createNode("a\n"), root);
+  root = insert(createNode("a\n"), root);
+  root = insert(createNode("y\n"), root);
+  displayTree(root);
 
-  printf("this is root %s", root -> name);
- 
-    printf("this is left %s", root -> left -> name);
- 
-    printf("this is right %s", root -> right -> name);
   free(root);
   fclose(X);
+}
+void displayTree(Node * head){
+  if(head == NULL || head -> name == NULL){
+    return;
+  }
+  displayTree(head -> left);
+  printf("%s", head->name);
+  displayTree(head -> right);
 }
 Node *insert(Node *nNode, Node *head){
   if(!head){
