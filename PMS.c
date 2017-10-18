@@ -14,7 +14,7 @@ typedef struct Node{
 } Node;
 
 Node *createNode(char *Name);
-Node *insert (Node* newNode, Node* head);
+Node *insert (Node* nNode, Node* head);
 
 
 int main(){
@@ -97,29 +97,53 @@ void listAllEmployees(FILE *X){
    printf("\n");
   }
   rewind(X);
+  char temp2[50];
+  
  
   Node *root;
-  root = createNode(fgets(temp, sizeof(temp), X));
+  root = createNode(("d\n")); 
+  /*Node *tempNode;
   while(fgets(temp, sizeof(temp), X)){
-    Node * tempNode;
+    //Node *tempNode;
     tempNode = createNode(temp);
-    //printf("%s", tempNode -> name);
+    printf("%s", tempNode -> name);
     root = insert(tempNode, root);
-  }
+    }*/
+  root = insert(createNode("a\n"), root);
+  root = insert(createNode("b\n"), root);
+  root = insert(createNode("c\n"), root);
+  root = insert(createNode("d\n"), root);
+  root = insert(createNode("e\n"), root);
+
   printf("this is root %s", root -> name);
-  if(root->left)
-  printf("this is left %s", root -> left -> name);
-  if(root->right)
-  printf("this is right %s", root -> right -> name);
+ 
+    printf("this is left %s", root -> left -> name);
+ 
+    printf("this is right %s", root -> right -> name);
   free(root);
   fclose(X);
 }
-Node *insert(Node *newNode, Node *head){
-  if(strcmp(newNode -> name, head -> name ) < 0){
-    head -> left = newNode;
+Node *insert(Node *nNode, Node *head){
+  if(!head){
+    head = nNode;
   }
-  else if (strcmp(newNode -> name, head -> name) > 0){
-    head -> right = newNode;
+  if(strcmp(nNode -> name, head -> name) < 0){
+   if(head -> left){
+     head -> left = insert(nNode, head -> left);
+   }
+   else{
+     head -> left = nNode;
+     return head;
+   }
+  }
+  else if(strcmp(nNode -> name, head -> name) > 0){
+    if(head -> right){
+      head -> right = insert (nNode, head->right);
+    }
+    else{
+      head -> right = nNode;
+      return head;
+    }
   }
   return head;
 }
