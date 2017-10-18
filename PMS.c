@@ -63,7 +63,6 @@ void addEmployee(FILE *X){
   if(choice){
     addEmployee(X);
   }
-  
 }
 
 //remove name from text file
@@ -106,13 +105,11 @@ void listAllEmployees(FILE *X){
   Node *root;
   root = createNode(("d\n")); 
   Node *tempNode;
-  /*while(fgets(temp, sizeof(temp), X)){
-    //Node *tempNode;
+  while(fgets(temp, sizeof(temp), X)){
     tempNode = createNode(temp);
     printf("%s", tempNode -> name);
     root = insert(tempNode, root);
     }
-  */
   root = insert(createNode("a\n"), root);
   root = insert(createNode("b\n"), root);
   root = insert(createNode("c\n"), root);
