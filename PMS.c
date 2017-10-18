@@ -93,23 +93,18 @@ void listAllEmployees(FILE *X){
   char temp[50];
   int id = 1;
   X = fopen("test.txt", "r");
-  /* if(X){
-    while(fgets(temp, sizeof(temp), X)){
-      printf("%d%s%s",id, ". ", temp);
-      ++id;
-    }
-   printf("\n");
+  while (fgets(temp, sizeof(temp), X)){
+    printf(temp);
   }
-  rewind(X);*/
- 
+  rewind(X);
   Node *root;
-  root = createNode(("d\n")); 
-  Node *tempNode;
-  while(fgets(temp, sizeof(temp), X)){
-    tempNode = createNode(temp);
-    printf("%s", tempNode -> name);
-    root = insert(tempNode, root);
-    }
+  char * str;
+  root = createNode(("d\n"));
+  while( str = fgets(temp, sizeof(temp), X)){
+      root = insert(createNode(str), root);
+  }
+  fclose(X);
+  /*
   root = insert(createNode("a\n"), root);
   root = insert(createNode("b\n"), root);
   root = insert(createNode("c\n"), root);
@@ -118,10 +113,10 @@ void listAllEmployees(FILE *X){
   root = insert(createNode("a\n"), root);
   root = insert(createNode("a\n"), root);
   root = insert(createNode("y\n"), root);
+   */  
   displayTree(root);
 
   free(root);
-  fclose(X);
 }
 
 //display the tree in order
@@ -130,7 +125,7 @@ void displayTree(Node * head){
     return;
   }
   displayTree(head -> left);
-  printf("%s", head->name);
+  printf("%s\n", head->name);
   displayTree(head -> right);
 }
 
